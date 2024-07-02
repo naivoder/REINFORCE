@@ -2,6 +2,24 @@ import matplotlib.pyplot as plt
 import numpy as np
 import imageio
 import cv2
+import gymnasium as gym
+
+
+def get_num_actions(env):
+    action_space = env.action_space
+
+    if isinstance(action_space, gym.spaces.Discrete):
+        return action_space.n
+    elif isinstance(action_space, gym.spaces.Box):
+        return action_space.shape[0]
+    elif isinstance(action_space, gym.spaces.MultiDiscrete):
+        return np.prod(action_space.nvec)
+    elif isinstance(action_space, gym.spaces.MultiBinary):
+        return action_space.n
+    else:
+        raise NotImplementedError(
+            "Unsupported action space type: {}".format(type(action_space))
+        )
 
 
 def linear_scale(epoch, start_value=0.6, min_value=0.1, num_epochs=2000):

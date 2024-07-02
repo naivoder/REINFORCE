@@ -36,18 +36,28 @@ environments = [
 def run_reinforce(args):
     save_prefix = args.env.split("/")[-1]
     env = gym.make(args.env)
-    agent = Agent(env_name=save_prefix, lr=3e-4, input_dims=env.observation_space.shape)
 
-    history, metrics, best_score = [], [], np.float("-inf")
+    print("Environment:", save_prefix)
+    print("Obs.Space:", env.observation_space)
+    print("Act.Space:", env.action_space)
+
+    agent = Agent(
+        env_name=save_prefix,
+        lr=3e-4,
+        input_dims=env.observation_space.shape,
+        n_actions=utils.get_num_actions(env),
+    )
+
+    history, metrics, best_score = [], [], float("-inf")
 
     for i in range(args.n_games):
-        print(f"Playing episode #{i+1}", end="\r")
         state, _ = env.reset()
 
         score = 0
         terminated, truncated = False, False
         while not terminated and not truncated:
             action = agent.choose_action(state)
+            # print("Action:", action)
             state_, reward, terminated, truncated, _ = env.step(action)
             agent.store_rewards(reward)
             score += reward
@@ -71,7 +81,7 @@ def run_reinforce(args):
         )
 
         print(
-            f"[{env_name} Episode {i + 1:04}/{args.n_games}]  Average Score = {avg_score:.2f}",
+            f"[{save_prefix} Episode {i + 1:04}/{args.n_games}]  Average Score = {avg_score:.2f}",
             end="\r",
         )
 
@@ -93,8 +103,6 @@ def save_best_version(env_name, agent, seeds=100):
     for _ in range(seeds):
         env = gym.make(env_name, render_mode="rgb_array")
         state, _ = env.reset()
-        state = np.array(state, dtype=np.float32).flatten()
-
         frames = []
         total_reward = 0
 
@@ -103,7 +111,6 @@ def save_best_version(env_name, agent, seeds=100):
             frames.append(env.render())
             action, _ = agent.choose_action(state)
             next_state, reward, term, trunc, _ = env.step(action)
-            next_state = np.array(next_state, dtype=np.float32).flatten()
             total_reward += reward
             state = next_state
 
