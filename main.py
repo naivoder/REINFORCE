@@ -6,6 +6,7 @@ import os
 import warnings
 from argparse import ArgumentParser
 import pandas as pd
+from collections import deque
 
 warnings.simplefilter("ignore")
 
@@ -40,7 +41,7 @@ def run_reinforce(args):
 
     atari_env = "ALE/" in args.env
     if atari_env:
-        input_dims = (1, 84, 84)
+        input_dims = (3, 84, 84)  # Modified input dimensions for 3 frames
     else:
         input_dims = env.observation_space.shape
 
@@ -58,6 +59,10 @@ def run_reinforce(args):
         state, _ = env.reset()
         if atari_env:
             state = utils.preprocess_frame(state)
+            state_buffer = deque(
+                [state] * 3, maxlen=3
+            )  # Initialize the buffer with the first frame
+            state = np.array(state_buffer)  # Create the initial state
 
         score = 0
         terminated, truncated = False, False
@@ -68,10 +73,11 @@ def run_reinforce(args):
             next_state, reward, terminated, truncated, _ = env.step(action)
             if atari_env:
                 next_state = utils.preprocess_frame(next_state)
+                state_buffer.append(next_state)  # Add the new frame to the buffer
+                state = np.array(state_buffer)  # Update the state with the new buffer
+
             agent.store_rewards(reward)
             score += reward
-            state = next_state
-
         agent.learn()
 
         history.append(score)
@@ -117,6 +123,8 @@ def save_best_version(env_name, agent, seeds=100):
         state, _ = env.reset()
         if atari_env:
             state = utils.preprocess_frame(state)
+            state_buffer = deque([state] * 3, maxlen=3)
+            state = np.array(state_buffer)
 
         frames = []
         total_reward = 0
@@ -130,6 +138,8 @@ def save_best_version(env_name, agent, seeds=100):
             next_state, reward, term, trunc, _ = env.step(action)
             if atari_env:
                 next_state = utils.preprocess_frame(next_state)
+                state_buffer.append(next_state)
+                state = np.array(state_buffer)
             total_reward += reward
             state = next_state
 
