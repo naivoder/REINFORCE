@@ -6,7 +6,6 @@ import os
 import warnings
 from argparse import ArgumentParser
 import pandas as pd
-import cv2
 
 warnings.simplefilter("ignore")
 
@@ -123,7 +122,7 @@ def save_best_version(env_name, agent, seeds=100):
         term, trunc = False, False
         while not term and not trunc:
             frames.append(env.render())
-            action, _ = agent.choose_action(state)
+            action = agent.choose_action(state)
             next_state, reward, term, trunc, _ = env.step(action)
             if atari_env:
                 next_state = utils.preprocess_frame(next_state)
