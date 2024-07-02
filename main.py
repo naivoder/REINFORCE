@@ -63,6 +63,8 @@ def run_reinforce(args):
         terminated, truncated = False, False
         while not terminated and not truncated:
             action = agent.choose_action(state)
+            if isinstance(action, np.ndarray):
+                action = action[0]
             next_state, reward, terminated, truncated, _ = env.step(action)
             if atari_env:
                 next_state = utils.preprocess_frame(next_state)
@@ -123,6 +125,8 @@ def save_best_version(env_name, agent, seeds=100):
         while not term and not trunc:
             frames.append(env.render())
             action = agent.choose_action(state)
+            if isinstance(action, np.ndarray):
+                action = action[0]
             next_state, reward, term, trunc, _ = env.step(action)
             if atari_env:
                 next_state = utils.preprocess_frame(next_state)
