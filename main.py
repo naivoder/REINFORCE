@@ -6,7 +6,7 @@ import os
 import warnings
 from argparse import ArgumentParser
 import pandas as pd
-import os
+import cv2
 
 warnings.simplefilter("ignore")
 
@@ -15,21 +15,21 @@ environments = [
     "MountainCar-v0",
     "Acrobot-v1",
     "LunarLander-v2",
-    # "ALE/Asteroids-v5",
-    # "ALE/Breakout-v5",
-    # "ALE/BeamRider-v5",
-    # "ALE/Centipede-v5",
-    # "ALE/DonkeyKong-v5",
-    # "ALE/DoubleDunk-v5",
-    # "ALE/Frogger-v5",
-    # "ALE/KungFuMaster-v5",
-    # "ALE/MarioBros-v5",
-    # "ALE/MsPacman-v5",
-    # "ALE/Pong-v5",
-    # "ALE/Seaquest-v5",
-    # "ALE/SpaceInvaders-v5",
-    # "ALE/Tetris-v5",
-    # "ALE/VideoChess-v5",
+    "ALE/Asteroids-v5",
+    "ALE/Breakout-v5",
+    "ALE/BeamRider-v5",
+    "ALE/Centipede-v5",
+    "ALE/DonkeyKong-v5",
+    "ALE/DoubleDunk-v5",
+    "ALE/Frogger-v5",
+    "ALE/KungFuMaster-v5",
+    "ALE/MarioBros-v5",
+    "ALE/MsPacman-v5",
+    "ALE/Pong-v5",
+    "ALE/Seaquest-v5",
+    "ALE/SpaceInvaders-v5",
+    "ALE/Tetris-v5",
+    "ALE/VideoChess-v5",
 ]
 
 
@@ -39,27 +39,37 @@ def run_reinforce(args):
 
     print("Environment:", save_prefix, env.action_space)
 
+    atari_env = "ALE/" in args.env
+    if atari_env:
+        input_dims = (1, 84, 84)
+    else:
+        input_dims = env.observation_space.shape
+
     agent = Agent(
         env_name=save_prefix,
         lr=3e-4,
-        input_dims=env.observation_space.shape,
+        input_dims=input_dims,
         n_actions=utils.get_num_actions(env),
+        use_cnn=atari_env,
     )
 
     history, metrics, best_score = [], [], float("-inf")
 
     for i in range(args.n_games):
         state, _ = env.reset()
+        if atari_env:
+            state = utils.preprocess_frame(state)
 
         score = 0
         terminated, truncated = False, False
         while not terminated and not truncated:
             action = agent.choose_action(state)
-            # print("Action:", action)
-            state_, reward, terminated, truncated, _ = env.step(action)
+            next_state, reward, terminated, truncated, _ = env.step(action)
+            if atari_env:
+                next_state = utils.preprocess_frame(next_state)
             agent.store_rewards(reward)
             score += reward
-            state = state_
+            state = next_state
 
         agent.learn()
 
@@ -83,6 +93,8 @@ def run_reinforce(args):
             end="\r",
         )
 
+    return history, metrics, best_score, agent
+
 
 def save_results(env_name, history, metrics, agent):
     save_prefix = env_name.split("/")[-1]
@@ -94,6 +106,7 @@ def save_results(env_name, history, metrics, agent):
 
 def save_best_version(env_name, agent, seeds=100):
     agent.load_checkpoints()
+    atari_env = "ALE/" in env_name
 
     best_total_reward = float("-inf")
     best_frames = None
@@ -101,6 +114,9 @@ def save_best_version(env_name, agent, seeds=100):
     for _ in range(seeds):
         env = gym.make(env_name, render_mode="rgb_array")
         state, _ = env.reset()
+        if atari_env:
+            state = utils.preprocess_frame(state)
+
         frames = []
         total_reward = 0
 
@@ -109,6 +125,8 @@ def save_best_version(env_name, agent, seeds=100):
             frames.append(env.render())
             action, _ = agent.choose_action(state)
             next_state, reward, term, trunc, _ = env.step(action)
+            if atari_env:
+                next_state = utils.preprocess_frame(next_state)
             total_reward += reward
             state = next_state
 
@@ -138,10 +156,11 @@ if __name__ == "__main__":
         if not os.path.exists(fname):
             os.makedirs(fname)
 
-    if args.env != None:
+    if args.env:
         history, metrics, best_score, trained_agent = run_reinforce(args)
         save_results(args.env, history, metrics, trained_agent)
-    else:
+    elif args.env is None:
         for env_name in environments:
+            args.env = env_name
             history, metrics, best_score, trained_agent = run_reinforce(args)
-            save_results(env_name, history, metrics, trained_agent)
+            save_results(args.env, history, metrics, trained_agent)

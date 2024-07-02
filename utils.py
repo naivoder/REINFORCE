@@ -45,10 +45,10 @@ def clip_reward(x):
         return x
 
 
-def preprocess_frame(state):
-    grayscale = cv2.cvtColor(state, cv2.COLOR_BGR2GRAY)
-    resized = cv2.resize(grayscale, (84, 84), interpolation=cv2.INTER_AREA)
-    return np.expand_dims(resized, axis=2)
+def preprocess_frame(frame):
+    gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+    resized = cv2.resize(gray, (84, 84), interpolation=cv2.INTER_AREA)
+    return np.expand_dims(resized, axis=0)
 
 
 def save_animation(frames, filename):

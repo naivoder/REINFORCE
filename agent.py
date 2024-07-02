@@ -5,12 +5,15 @@ import torch.nn.functional as F
 
 
 class Agent:
-    def __init__(self, env_name, lr, input_dims, n_actions=4, gamma=0.99):
+    def __init__(
+        self, env_name, lr, input_dims, n_actions=4, gamma=0.99, use_cnn=False
+    ):
         self.env_name = env_name
         self.lr = lr
         self.input_dims = input_dims
         self.n_actions = n_actions
         self.gamma = gamma
+        self.use_cnn = use_cnn
 
         self.reward_memory = []
         self.action_memory = []
@@ -20,11 +23,13 @@ class Agent:
             n_actions=self.n_actions,
             lr=self.lr,
             chkpt_path=f"weights/{env_name}.pt",
+            use_cnn=use_cnn,
         )
 
     def choose_action(self, state):
-        # need to add batch dimension to state so pytorch doesn't freak out
         state = torch.Tensor(np.array(state)).to(self.policy.device)
+        if self.use_cnn:
+            state = state.unsqueeze(0)  # Add batch dimension for CNN
         probs = F.softmax(self.policy(state), dim=-1)
 
         action_probs = torch.distributions.Categorical(probs)
@@ -72,4 +77,6 @@ class Agent:
 
 
 if __name__ == "__main__":
-    agent = Agent(0.0005, (8))
+    agent = Agent(
+        env_name="CartPole-v1", lr=0.0005, input_dims=(8,), n_actions=4, use_cnn=False
+    )
