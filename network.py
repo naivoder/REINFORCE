@@ -3,7 +3,6 @@ from torch import nn
 
 
 class Policy(nn.Module):
-
     def __init__(self, input_dims, n_actions, lr, chkpt_path="weights/policy.pt"):
         super(Policy, self).__init__()
         self.device = "cuda" if torch.cuda.is_available() else "cpu"

@@ -19,7 +19,7 @@ class Agent:
             input_dims=self.input_dims,
             n_actions=self.n_actions,
             lr=self.lr,
-            chkpt_path="weights/",
+            chkpt_path=f"weights/{env_name}.pt",
         )
 
     def choose_action(self, state):
@@ -33,7 +33,7 @@ class Agent:
 
         self.action_memory.append(log_prob)
 
-        return action.item()
+        return action.detach().cpu().numpy()
 
     def learn(self):
         self.policy.optimizer.zero_grad()
