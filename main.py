@@ -37,9 +37,7 @@ def run_reinforce(args):
     save_prefix = args.env.split("/")[-1]
     env = gym.make(args.env)
 
-    print("Environment:", save_prefix)
-    print("Obs.Space:", env.observation_space)
-    print("Act.Space:", env.action_space)
+    print("Environment:", save_prefix, env.action_space)
 
     agent = Agent(
         env_name=save_prefix,
@@ -140,7 +138,7 @@ if __name__ == "__main__":
         if not os.path.exists(fname):
             os.makedirs(fname)
 
-    if args.env:
+    if args.env != None:
         history, metrics, best_score, trained_agent = run_reinforce(args)
         save_results(args.env, history, metrics, trained_agent)
     else:
