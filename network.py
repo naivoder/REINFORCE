@@ -7,7 +7,7 @@ class Policy(nn.Module):
         self, input_dims, n_actions, lr, chkpt_path="weights/policy.pt", use_cnn=False
     ):
         super(Policy, self).__init__()
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.input_dims = input_dims
         self.n_actions = n_actions
         self.lr = lr
@@ -16,16 +16,16 @@ class Policy(nn.Module):
 
         if use_cnn:
             self.model = nn.Sequential(
-                nn.Conv2d(input_dims[0], 32, kernel_size=8, stride=4),
+                nn.Conv2d(input_dims[0], 32, kernel_size=3, stride=2),
                 nn.ReLU(),
-                nn.Conv2d(32, 64, kernel_size=4, stride=2),
+                nn.Conv2d(32, 64, kernel_size=3, stride=2),
                 nn.ReLU(),
-                nn.Conv2d(64, 64, kernel_size=3, stride=1),
+                nn.Conv2d(64, 64, kernel_size=3, stride=2),
                 nn.ReLU(),
                 nn.Flatten(),
-                nn.Linear(64 * 7 * 7, 512),
+                nn.Linear(64 * 9 * 9, 256),
                 nn.ReLU(),
-                nn.Linear(512, n_actions),
+                nn.Linear(256, n_actions),
             ).to(self.device)
         else:
             self.model = nn.Sequential(

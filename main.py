@@ -41,13 +41,13 @@ def run_reinforce(args):
 
     atari_env = "ALE/" in args.env
     if atari_env:
-        input_dims = (3, 84, 84)  # Modified input dimensions for 3 frames
+        input_dims = (3, 84, 84)
     else:
         input_dims = env.observation_space.shape
 
     agent = Agent(
         env_name=save_prefix,
-        lr=3e-4,
+        lr=3e-5,
         input_dims=input_dims,
         n_actions=utils.get_num_actions(env),
         use_cnn=atari_env,
