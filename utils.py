@@ -93,3 +93,4 @@ def plot_running_avg(scores, env):
     plt.ylabel("Average Score")
     plt.grid(True)
     plt.savefig(f"metrics/{env}_running_avg.png")
+    plt.close()

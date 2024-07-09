@@ -35,10 +35,6 @@ python main.py --env 'LunarLander-v2'
             <img src="environments/MountainCar-v0.gif" width="250" height="250"/>
         </td>
         <td>
-            <p><b>LunarLander-v2</b></p>
-            <img src="environments/LunarLander-v2.gif" width="250" height="250"/>
-        </td>
-        <td>
             <p><b>Acrobot-v1</b></p>
             <img src="environments/Acrobot-v1.gif" width="250" height="250"/>
         </td>
@@ -51,18 +47,15 @@ python main.py --env 'LunarLander-v2'
             <img src="metrics/MountainCar-v0_running_avg.png" width="250" height="250"/>
         </td>
         <td>
-            <img src="metrics/LunarLander-v2_running_avg.png" width="250" height="250"/>
-        </td>
-        <td>
             <img src="metrics/Acrobot-v1_running_avg.png" width="250" height="250"/>
         </td>
     </tr>
 </table>
-<!-- <table>
+<table>
     <tr>
         <td>
-            <p><b>LundarLander-v2</b></p>
-            <img src="environments/LundarLander-v2.gif" width="250" height="250"/>
+            <p><b>LunarLander-v2</b></p>
+            <img src="environments/LunarLander-v2.gif" width="250" height="250"/>
         </td>
         <td>
             <p><b>Asteroids-v5</b></p>
@@ -75,7 +68,7 @@ python main.py --env 'LunarLander-v2'
     </tr>
     <tr>
         <td>
-            <img src="metrics/LundarLander-v2_running_avg.png" width="250" height="250"/>
+            <img src="metrics/LunarLander-v2_running_avg.png" width="250" height="250"/>
         </td>
         <td>
             <img src="metrics/Asteroids-v5_running_avg.png" width="250" height="250"/>
@@ -118,28 +111,28 @@ python main.py --env 'LunarLander-v2'
             <p><b>Frogger-v5</b></p>
             <img src="environments/Frogger-v5.gif" width="250" height="250"/>
         </td>
-        <td>
+        <!-- <td>
             <p><b>KungFuMaster-v5</b></p>
             <img src="environments/KungFuMaster-v5.gif" width="250" height="250"/>
         </td>
         <td>
             <p><b>MarioBros-v5</b></p>
             <img src="environments/MarioBros-v5.gif" width="250" height="250"/>
-        </td>
+        </td> -->
     </tr>
     <tr>
         <td>
-            <img src="metrics/InvertedDoublePendulum-v4_running_avg.png" width="250" height="250"/>
+            <img src="metrics/Frogger-v5_running_avg.png" width="250" height="250"/>
         </td>
-        <td>
+        <!-- <td>
             <img src="metrics/KungFuMaster-v5_running_avg.png" width="250" height="250"/>
         </td>
         <td>
             <img src="metrics/MarioBros-v5_running_avg.png" width="250" height="250"/>
-        </td>
+        </td> -->
     </tr>
 </table>
-<table>
+<!-- <table>
     <tr>
         <td>
             <p><b>MsPacman-v5</b></p>
