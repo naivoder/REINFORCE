@@ -4,6 +4,10 @@ from argparse import ArgumentParser
 import utils
 from collections import deque
 import numpy as np
+from tqdm import tqdm
+import warnings
+
+warnings.simplefilter("ignore")
 
 
 def generate_animation(env_name):
@@ -31,7 +35,7 @@ def generate_animation(env_name):
     best_total_reward = float("-inf")
     best_frames = None
 
-    for _ in range(10):
+    for _ in tqdm(range(10)):
         frames = []
         total_reward = 0
 
@@ -43,6 +47,7 @@ def generate_animation(env_name):
 
         terminated, truncated = False, False
         while not terminated and not truncated:
+            frames.append(env.render())
             action = agent.choose_action(state)
 
             if isinstance(action, np.ndarray):
@@ -61,7 +66,7 @@ def generate_animation(env_name):
             best_total_reward = total_reward
             best_frames = frames
 
-    utils.save_animation(best_frames, f"environments/{env_name}.gif")
+    utils.save_animation(best_frames, f"environments/{save_prefix}.gif")
 
 
 if __name__ == "__main__":
