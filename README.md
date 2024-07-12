@@ -138,11 +138,11 @@ python main.py --env 'LunarLander-v2'
             <p><b>MsPacman-v5</b></p>
             <img src="environments/MsPacman-v5.gif" width="250" height="250"/>
         </td>
-        <!--<td>
-            <p><b>SpaceInvaders-v5</b></p>
-            <img src="environments/SpaceInvaders-v5.gif" width="250" height="250"/>
-        </td>
         <td>
+            <p><b>Pong-v5</b></p>
+            <img src="environments/Pong-v5.gif" width="250" height="250"/>
+        </td>
+        <!--<td>
             <p><b>Tetris-v5</b></p>
             <img src="environments/Tetris-v5.gif" width="250" height="250"/>
         </td>-->
@@ -151,10 +151,10 @@ python main.py --env 'LunarLander-v2'
         <td>
             <img src="metrics/MsPacman-v5_running_avg.png" width="250" height="250"/>
         </td>
-        <!--<td>
-            <img src="metrics/SpaceInvaders-v5_running_avg.png" width="250" height="250"/>
-        </td>
         <td>
+            <img src="metrics/Pong-v5_running_avg.png" width="250" height="250"/>
+        </td>
+        <!--<td>
             <img src="metrics/Tetris-v5_running_avg.png" width="250" height="250"/>
         </td>-->
     </tr>
