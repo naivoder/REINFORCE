@@ -115,10 +115,10 @@ python main.py --env 'LunarLander-v2'
             <p><b>KungFuMaster-v5</b></p>
             <img src="environments/KungFuMaster-v5.gif" width="250" height="250"/>
         </td>
-        <!-- <td>
+        <td>
             <p><b>MarioBros-v5</b></p>
             <img src="environments/MarioBros-v5.gif" width="250" height="250"/>
-        </td> -->
+        </td>
     </tr>
     <tr>
         <td>
@@ -127,38 +127,38 @@ python main.py --env 'LunarLander-v2'
         <td>
             <img src="metrics/KungFuMaster-v5_running_avg.png" width="250" height="250"/>
         </td>
-        <!-- <td>
+        <td>
             <img src="metrics/MarioBros-v5_running_avg.png" width="250" height="250"/>
-        </td> -->
+        </td>
     </tr>
 </table>
-<!-- <table>
+<table>
     <tr>
         <td>
             <p><b>MsPacman-v5</b></p>
             <img src="environments/MsPacman-v5.gif" width="250" height="250"/>
         </td>
-        <td>
+        <!--<td>
             <p><b>SpaceInvaders-v5</b></p>
             <img src="environments/SpaceInvaders-v5.gif" width="250" height="250"/>
         </td>
         <td>
             <p><b>Tetris-v5</b></p>
             <img src="environments/Tetris-v5.gif" width="250" height="250"/>
-        </td>
+        </td>-->
     </tr>
     <tr>
         <td>
             <img src="metrics/MsPacman-v5_running_avg.png" width="250" height="250"/>
         </td>
-        <td>
+        <!--<td>
             <img src="metrics/SpaceInvaders-v5_running_avg.png" width="250" height="250"/>
         </td>
         <td>
             <img src="metrics/Tetris-v5_running_avg.png" width="250" height="250"/>
-        </td>
+        </td>-->
     </tr>
-</table> -->
+</table>
 
 ## Acknowledgements
 

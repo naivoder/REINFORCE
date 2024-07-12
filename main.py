@@ -11,19 +11,19 @@ from collections import deque
 warnings.simplefilter("ignore")
 
 environments = [
-    "CartPole-v1",
-    "MountainCar-v0",
-    "Acrobot-v1",
-    "LunarLander-v2",
-    "ALE/Asteroids-v5",
-    "ALE/Breakout-v5",
-    "ALE/BeamRider-v5",
-    "ALE/Centipede-v5",
-    "ALE/DonkeyKong-v5",
-    "ALE/DoubleDunk-v5",
-    "ALE/Frogger-v5",
-    "ALE/KungFuMaster-v5",
-    "ALE/MarioBros-v5",
+    # "CartPole-v1",
+    # "MountainCar-v0",
+    # "Acrobot-v1",
+    # "LunarLander-v2",
+    # "ALE/Asteroids-v5",
+    # "ALE/Breakout-v5",
+    # "ALE/BeamRider-v5",
+    # "ALE/Centipede-v5",
+    # "ALE/DonkeyKong-v5",
+    # "ALE/DoubleDunk-v5",
+    # "ALE/Frogger-v5",
+    # "ALE/KungFuMaster-v5",
+    # "ALE/MarioBros-v5",
     "ALE/MsPacman-v5",
     "ALE/Pong-v5",
     "ALE/Seaquest-v5",
@@ -106,7 +106,7 @@ def save_results(env_name, history, metrics, agent):
     utils.plot_running_avg(history, save_prefix)
     df = pd.DataFrame(metrics)
     df.to_csv(f"metrics/{save_prefix}_metrics.csv", index=False)
-    save_best_version(env_name, agent)
+    # save_best_version(env_name, agent)
 
 
 def save_best_version(env_name, agent, seeds=100):
