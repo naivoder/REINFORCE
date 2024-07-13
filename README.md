@@ -142,10 +142,10 @@ python main.py --env 'LunarLander-v2'
             <p><b>Pong-v5</b></p>
             <img src="environments/Pong-v5.gif" width="250" height="250"/>
         </td>
-        <!--<td>
-            <p><b>Tetris-v5</b></p>
-            <img src="environments/Tetris-v5.gif" width="250" height="250"/>
-        </td>-->
+        <td>
+            <p><b>Seaquest-v5</b></p>
+            <img src="environments/Seaquest-v5.gif" width="250" height="250"/>
+        </td>
     </tr>
     <tr>
         <td>
@@ -154,9 +154,9 @@ python main.py --env 'LunarLander-v2'
         <td>
             <img src="metrics/Pong-v5_running_avg.png" width="250" height="250"/>
         </td>
-        <!--<td>
-            <img src="metrics/Tetris-v5_running_avg.png" width="250" height="250"/>
-        </td>-->
+        <td>
+            <img src="metrics/Seaquest-v5_running_avg.png" width="250" height="250"/>
+        </td>
     </tr>
 </table>
 

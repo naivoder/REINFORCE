@@ -37,8 +37,6 @@ def run_reinforce(args):
     save_prefix = args.env.split("/")[-1]
     env = gym.make(args.env)
 
-    print("Environment:", save_prefix, env.action_space)
-
     atari_env = "ALE/" in args.env
     if atari_env:
         input_dims = (3, 84, 84)
@@ -98,6 +96,7 @@ def run_reinforce(args):
             end="\r",
         )
 
+    print("Environment:", save_prefix, env.action_space, "Top Score =", best_score)
     return history, metrics, best_score, agent
 
 
