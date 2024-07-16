@@ -135,6 +135,33 @@ python main.py --env 'LunarLander-v2'
 <table>
     <tr>
         <td>
+            <p><b>SpaceInvaders-v5</b></p>
+            <img src="environments/SpaceInvaders-v5.gif" width="250" height="250"/>
+        </td>
+        <td>
+            <p><b>Tetris-v5</b></p>
+            <img src="environments/Tetris-v5.gif" width="250" height="250"/>
+        </td>
+        <td>
+            <p><b>Gopher-v5</b></p>
+            <img src="environments/Gopher-v5.gif" width="250" height="250"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="metrics/SpaceInvaders-v5_running_avg.png" width="250" height="250"/>
+        </td>
+        <td>
+            <img src="metrics/Tetris-v5_running_avg.png" width="250" height="250"/>
+        </td>
+        <td>
+            <img src="metrics/Gopher-v5_running_avg.png" width="250" height="250"/>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
             <p><b>MsPacman-v5</b></p>
             <img src="environments/MsPacman-v5.gif" width="250" height="250"/>
         </td>

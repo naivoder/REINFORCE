@@ -29,7 +29,7 @@ environments = [
     "ALE/Seaquest-v5",
     "ALE/SpaceInvaders-v5",
     "ALE/Tetris-v5",
-    "ALE/VideoChess-v5",
+    "ALE/Gopher-v5",
 ]
 
 
